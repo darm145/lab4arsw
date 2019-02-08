@@ -20,22 +20,31 @@ public class StartProduction {
     
     
     public static void main(String[] args) {
-        
     	Queue<Integer> queue=new LinkedBlockingQueue<>();
-        ArrayList<Consumer> consumers=new ArrayList<Consumer>();
-        consumers.add(new Consumer(queue));
-        
-        new Producer(queue,Long.MAX_VALUE,consumers).start();
-        
-        //let the producer create products for 5 seconds (stock).
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(StartProduction.class.getName()).log(Level.SEVERE, null, ex);
+    	// Fast consumer slow producer
+    	//----------------------------------------------------------------------------------------------------------
+    	
+//       ArrayList<Consumer> consumers=new ArrayList<Consumer>();
+//        consumers.add(new Consumer(queue));
+//        new Producer(queue,Long.MAX_VALUE,consumers).start();
+//       //let the producer create products for 5 seconds (stock).
+//       try {
+//          Thread.sleep(5000);
+//       } catch (InterruptedException ex) {
+//           Logger.getLogger(StartProduction.class.getName()).log(Level.SEVERE, null, ex);
+//       }
+//       for(Consumer c:consumers) {
+//       	c.start();
+//        }
+      //----------------------------------------------------------------------------------------------------------
+        //fast producer Slow Consumer
+        ArrayList<fastProducer> producers=new ArrayList<fastProducer>();
+        producers.add(new fastProducer(queue,3));
+       SlowConsumer sc=new SlowConsumer(queue, producers);
+        for (fastProducer fp:producers) {
+        	fp.start();
         }
-        for(Consumer c:consumers) {
-        	c.start();
-        }
+        sc.start();
     }
     
 
