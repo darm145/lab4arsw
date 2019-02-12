@@ -37,6 +37,7 @@ public class HostBlackListsValidator {
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
         
         int ocurrencesCount=0;
+        AtomicInteger atomic=new AtomicInteger();
         
         
         
@@ -49,8 +50,8 @@ public class HostBlackListsValidator {
         for(int i=0;i<N;i++) {
         	checkSegment cs;
         	
-        	if(i!=N-1) cs=new checkSegment(initial,initial+segmentSize,ipaddress);
-        	else cs=new checkSegment(initial,skds.getRegisteredServersCount(),ipaddress);
+        	if(i!=N-1) cs=new checkSegment(initial,initial+segmentSize,ipaddress,atomic);
+        	else cs=new checkSegment(initial,skds.getRegisteredServersCount(),ipaddress,atomic);
         	
         	initial+=segmentSize;
         	threads.add(cs);
