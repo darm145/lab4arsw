@@ -47,6 +47,7 @@ public class Immortal extends Thread {
             int myIndex = immortalsPopulation.indexOf(this);
 
             int nextFighterIndex = r.nextInt(immortalsPopulation.size());
+            
 
             //avoid self-fight
             if (nextFighterIndex == myIndex) {
@@ -68,23 +69,25 @@ public class Immortal extends Thread {
     }
 
     public void fight(Immortal i2) {
-
-        if (i2.getHealth() > 0) {
-            i2.substractHealth(defaultDamageValue);
-            this.health.addAndGet(defaultDamageValue);
-            updateCallback.processReport("Fight: " + this + " vs " + i2+"\n");
-        } else {
-            updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");
-        }
+    	synchronized(immortalsPopulation) {
+    		
+    			if (i2.getHealth() > 0) {
+                    i2.substractHealth(defaultDamageValue);
+                    this.health.addAndGet(defaultDamageValue);
+                    updateCallback.processReport("Fight: " + this + " vs " + i2+"\n");
+                } else {
+                    updateCallback.processReport(this + " says:" + i2 + " is already dead!\n");   
+                }
+    	}
+        
 
     }
 
     public void substractHealth(int v) {
-    	synchronized(health) {
     		int x=health.get();
     		x-=v;
     		health.getAndSet(x);
-    	}
+    	
     }
 
     public int getHealth() {
