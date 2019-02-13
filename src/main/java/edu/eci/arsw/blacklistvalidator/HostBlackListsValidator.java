@@ -50,8 +50,8 @@ public class HostBlackListsValidator {
         for(int i=0;i<N;i++) {
         	checkSegment cs;
         	
-        	if(i!=N-1) cs=new checkSegment(initial,initial+segmentSize,ipaddress,atomic);
-        	else cs=new checkSegment(initial,skds.getRegisteredServersCount(),ipaddress,atomic);
+        	if(i!=N-1) cs=new checkSegment(initial,initial+segmentSize,ipaddress,atomic,BLACK_LIST_ALARM_COUNT);
+        	else cs=new checkSegment(initial,skds.getRegisteredServersCount(),ipaddress,atomic,BLACK_LIST_ALARM_COUNT);
         	
         	initial+=segmentSize;
         	threads.add(cs);
