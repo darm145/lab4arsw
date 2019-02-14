@@ -129,6 +129,7 @@ public class ControlFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnPauseAndCheck.doClick();
 				btnStart.setEnabled(true);
 				immortals=new LinkedList<Immortal>();
 				
